@@ -25,7 +25,7 @@ public class Finder {
         }*/
 
         Set<String> groupsNames = new HashSet<>();
-        List<Member> currentMember = new ArrayList<>();
+        
         groups.forEach(membersGroup -> membersGroup.getMembers().stream()    // Для каждого Листа получаем стрим с участниками
                   .filter(member -> member.getAge()>targetAge)               // В каждом стриме отбрасываем участников с возрастом меньше заданного   
                   .map(Member::getName)                                      // Преобразуем из Member в String
