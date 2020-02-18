@@ -1,0 +1,39 @@
+package ru.esphere.school.service;
+import ru.esphere.school.data.Member;
+import ru.esphere.school.data.MembersGroup;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class Finder {
+    /**
+     * Поиск групп людей старше определенного возраста.
+     *
+     * @param groups группы
+     * @param targetAge возраст для поиска
+     * @return список имен групп из списка групп старше возраста targetAge
+     */
+    public Set<String> findOldMembers(List<MembersGroup> groups, int targetAge) {
+
+        /*for (MembersGroup membersGroup : groups) {
+            for (Member member : membersGroup.getMembers()) {
+                if (member.getAge() > targetAge) {
+                    String name = member.getName();
+                    groupsNames.add(name);
+                }
+            }
+        }*/
+
+        Set<String> groupsNames = new HashSet<>();
+        List<Member> currentMember = new ArrayList<>();
+        groups.forEach(membersGroup -> membersGroup.getMembers().stream()    // Для каждого Листа получаем стрим с участниками
+                  .filter(member -> member.getAge()>targetAge)               // В каждом стриме отбрасываем участников с возрастом меньше заданного   
+                  .map(Member::getName)                                      // Преобразуем из Member в String
+                  .forEach(groupsNames::add));                               // Оставшиеся строки добавляем в Set
+
+
+
+        return groupsNames;
+    }
+
+}
